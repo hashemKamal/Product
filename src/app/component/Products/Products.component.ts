@@ -1,57 +1,79 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
+import { IProduct } from '../../Models/iproduct';
+import { ProductService } from '../../Services/product.service';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-Products',
   imports:[
-    FormsModule
+    FormsModule,
+    RouterModule,
+    CommonModule
   ],
   templateUrl: './Products.component.html',
-  styleUrls: ['./Products.component.css']
+  styleUrls: ['./Products.component.css'],
+
 })
-export class ProductsComponent  {
+export class ProductsComponent implements OnInit {
+  imageLink="https://redbikemarketing.com/wp-content/uploads/2019/06/product.png"
 
-  title:string="Products List Application";
-  
-  imageLink:string="https://redbikemarketing.com/wp-content/uploads/2019/06/product.png";
-
-  products : string [] = []; 
-  newProduct : string = "" ;
+  products : IProduct [] = [];
+  newProduct : IProduct = {} as IProduct;
   isAvalible : boolean = false ;
-  addProduct()
-  {
-    if(this.newProduct.trim() !=="")
-    {
-      this.products.push(this.newProduct);
-      this.newProduct="";
-      this.isAvalible = true;
-    }
+  constructor(private ProductService:ProductService){}
+  ngOnInit(): void {
+    this.getProducts();
   }
-  DeleteProduct(index:number)
+  getProducts()
   {
-    this.products.splice(index,1)
+    this.ProductService.getProducts().subscribe(x=>
+   {
+    this.products=x;
     this.isAvalible = this.products.length > 0;
+   });
   }
- /* EditProduct(index:number)
-  {
-    let updateProduct =prompt("Edit Product",this.products[index]);
-    if (updateProduct!==null)
-    {
-      this.products[index]=updateProduct.trim();
-    }
 
-  }*/
-  EditProduct(index:number , newProductEdit:string) :string | void
+  createProducts(): void
   {
-    if (newProductEdit.trim() !=="")
-      {
-        this.products[index]=newProductEdit;
-      } 
-    else
+    const newProduct1 = {id : this.newProduct.id, name : this.newProduct.name, price : this.newProduct.price, completed : this.newProduct.completed};
+
+    this.ProductService.createProduct(newProduct1).subscribe(x=>
     {
-      newProductEdit=this.products[index];
-      return this.newProduct = newProductEdit;
-    }
-    this.newProduct="";
+      this.products.push(x);
+      this.isAvalible = this.products.length > 0;
+    });
   }
-}
+
+  DeleteProduct(id:string):void
+  {
+    this.ProductService.deleteProduct(id).subscribe(()=>
+    {
+      this.products = this.products.filter(p=>p.id !== id);
+      this.isAvalible = this.products.length > 0;
+    });
+  }
+   }
+ // EditProduct(index:number)
+  //{
+   // let updateProduct =prompt("Edit Product",this.newProduct[index]);
+    //if (updateProduct!==null)
+    //{
+      //this.products[index]=updateProduct.trim();
+    //}
+
+
+  //EditProduct(index:number , newProductEdit:string) :string | void
+  //{
+    //if (newProductEdit.trim() !=="")
+      //{
+      //  this.products[index]=newProductEdit;
+     // }
+    //else
+    //{
+     // newProductEdit=this.products[index];
+    //  return this.newProduct = newProductEdit;
+   // }
+  //  this.newProduct="";
+//  }
+//}

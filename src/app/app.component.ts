@@ -1,16 +1,14 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import {MatButtonModule} from '@angular/material/button';
-import { ButtonModule } from 'primeng/button';
-import { ProductsComponent } from './component/Products/Products.component';
+import { HeaderComponent } from './component/header/header.component';
+import { FooterComponent } from './component/footer/footer.component';
 
 @Component({
   selector: 'app-root',
   imports: [
     RouterOutlet,
-    MatButtonModule,
-    ButtonModule,
-    ProductsComponent
+    HeaderComponent,
+    FooterComponent,
     ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

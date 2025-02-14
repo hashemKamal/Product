@@ -1,0 +1,46 @@
+<img
+  width="300"
+  height="300"
+  class="img-fluid mx-auto d-block mb-3"
+  [src]="imageLink"
+  alt=""
+/>
+@if (product) {
+
+<div class="container px-5 my-5">
+  <h2>Product Title : {{product.name}}</h2>
+  <h3>Product Id : {{product.id}}</h3>
+  <div class="borderClass">
+    <form id="contact-form" (ngSubmit)="updateProduct()" #form="ngForm">
+      <div class="mb-3 d-flex">
+        <label class="form-label w-25 fw-bold" for="title">Product Name</label>
+        <input
+          type="text"
+          class="form-control w-75 fw-bold"
+          placeholder="Product Name"
+          id="title"
+          required
+          pattern="[a-zA-Z ]*"
+          name="Product 1"
+          #input="ngModel"
+          [(ngModel)]="product.name"
+          ngClass="{'is-invalid': input.invalid && input.touched}"
+        />
+      </div>
+      <div class="mb-3 d-flex">
+        <label class="form-label fw-bold" for="Select">Selected</label>
+        <input
+          type="checkbox"
+          [ngModel]="product.completed"
+          class="form-check-input ms-2"
+          id="Select"
+          name="Select"
+        />
+      </div>
+      <div class="mb-3 d-grid">
+        <button type="submit" [disabled]="form.invalid" id="submitButton" class="btn btn-primary">Update</button>
+      </div>
+    </form>
+  </div>
+</div>
+}
