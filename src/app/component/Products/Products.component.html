@@ -1,12 +1,11 @@
 <section>
-
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col">
         <div class="card" id="list">
           <div class="card-body py-4 px-4 px-md-5">
             <p class="h1 text-center mt-3 mb-4 pb-3 text-primary">
-              <i class="fa-solid "></i>Product List
+              <i class="fa-solid"></i>Product List
             </p>
             <div class="pb-2">
               <div class="card">
@@ -19,12 +18,14 @@
                         id="exampleFormControlInput1"
                         placeholder="Add New Product"
                         [(ngModel)]="newProduct.name"
-                        name="title 1"/>
+                        name="title 1"
+                      />
                       <a data-mdb-toggle="tooltip" title="Add Product"
-                        ><i class=" me-3 fa-lg"></i
+                        ><i class="fa-lg"></i
                       ></a>
                       <div>
-                        <button type="submit" class="btn btn-primary">Add
+                        <button type="submit" class="btn btn-primary">
+                          Add
                         </button>
                       </div>
                     </div>
@@ -32,11 +33,44 @@
                 </div>
               </div>
             </div>
-            <hr class="mt-3"/>
-            @for(x of products; track x.id){
+            <div class="row">
+              <div class="col-sm-12">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Product</th>
+                      <th>Edit</th>
+                      <th>Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let product of products">
+                      <td>{{ product.name }}</td>
+                      <td>
+                        <a
+                          data-mdb-toggle="tooltip"
+                          title="Edit Product"
+                          [routerLink]="['/products', product.id]"
+                          ><i class="fas fa-edit"></i></a>
+                      </td>
+                      <td>
+                        <a class="text-danger"
+                          data-mdb-toggle="tooltip"
+                          title="Delete Product"
+                          (click)="DeleteProduct(product.id)"
+                          ><i class="fas fa-trash-alt"></i
+                        ></a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+             <!-- @for(x of products; track x.id){
             <ul class="list-group list-group-horizontal rounded-0 mb-2">
               <li
-                class="list-group-item d-flex align-items-center ps-0 pe-3 py-1 rounded-0">
+                class="list-group-item d-flex align-items-center ps-0 pe-3 py-1 rounded-0"
+              >
                 <div class="form-check">
                   <input
                     class="form-check-input me-3"
@@ -49,28 +83,31 @@
                 </div>
               </li>
               <li
-                class="list-group-item d-flex align-items-center px-3 py-1 flex-grow-1 rounded-0">
+                class="list-group-item d-flex align-items-center px-3 py-1 flex-grow-1 rounded-0"
+              >
                 <p
                   class="lead fw-normal mb-0 bg-light w-100 ms-n2 ps-2 py-1 rounded-0"
-                  [ngClass]="{'text-decoration-line-through' : x.completed}"
+                  [ngClass]="{ 'text-decoration-line-through': x.completed }"
                   [routerLink]="['/products', x.id]"
                 >
                   {{ x.name }}
                 </p>
               </li>
               <li
-                class="list-group-item ps-3 pe-0 py-1 rounded-0 border-0 bg-transparent">
+                class="list-group-item ps-3 pe-0 py-1 rounded-0 border-0 bg-transparent"
+              >
                 <div class="d-flex flex-row justify-content-end mb-1">
                   <a
                     class="text-danger"
                     data-mdb-toggle="tooltip"
                     title="Delete Product"
                     (click)="DeleteProduct(x.id)"
-                    ><i class="fas fa-trash-alt"></i></a>
+                    ><i class="fas fa-trash-alt"></i
+                  ></a>
                 </div>
               </li>
             </ul>
-            }
+            } -->
           </div>
         </div>
       </div>

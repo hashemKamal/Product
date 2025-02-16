@@ -42,7 +42,9 @@ export class ProductsComponent implements OnInit {
     {
       this.products.push(x);
       this.isAvalible = this.products.length > 0;
+
     });
+
   }
 
   DeleteProduct(id:string):void
@@ -54,15 +56,21 @@ export class ProductsComponent implements OnInit {
     });
   }
    }
- // EditProduct(index:number)
-  //{
-   // let updateProduct =prompt("Edit Product",this.newProduct[index]);
-    //if (updateProduct!==null)
-    //{
-      //this.products[index]=updateProduct.trim();
-    //}
 
 
+// EditProduct(id: string, newProductEdit: string): void {
+//   if (newProductEdit.trim() !== "") {
+//     this.products[index].name = newProductEdit;
+//   } else {
+//     newProductEdit = this.products[index].name;
+//     this.newProduct.name = newProductEdit;
+//   }
+//   this.newProduct.name = "";
+//}
+
+function EditProduct(index: any, number: any, newProductEdit: any, string: any) {
+  throw new Error('Function not implemented.');
+}
   //EditProduct(index:number , newProductEdit:string) :string | void
   //{
     //if (newProductEdit.trim() !=="")
