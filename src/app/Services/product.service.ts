@@ -7,7 +7,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ProductService {
-  private apiurl = 'http://localhost:3000/Products';
+  //private apiurl = 'http://localhost:3000/Products';
+  private apiurl = 'http://localhost:5213/api/Products';
   constructor(private httpClient:HttpClient) { }
 // Get all products
 getProducts(): Observable <IProduct[]>
@@ -15,22 +16,25 @@ getProducts(): Observable <IProduct[]>
   return this.httpClient.get<IProduct[]>(this.apiurl);
 }
 //create product
-createProduct(product: IProduct): Observable<IProduct>
+createProduct(product: string): Observable<IProduct>
 {
-  return this.httpClient.post<IProduct>(this.apiurl, JSON.stringify(product));
+  return this.httpClient.post<IProduct>(`${this.apiurl}?productName=${encodeURIComponent(product)}`,{});
 }
 //get product by id
-getProductById(id: string): Observable<IProduct>
+getProductById(id: string | null): Observable<IProduct>
 {
-  return this.httpClient.get<IProduct>(`${this.apiurl}/${id}`);
+  return this.httpClient.get<IProduct>(`${this.apiurl}/id?id=${id}`);
 }
 //update product
 updateProduct(product: IProduct): Observable<IProduct>
 {
-  return this.httpClient.put<IProduct>(`${this.apiurl}/${product.id}`, JSON.stringify(product));
+  console.log(JSON.stringify(product));
+  return this.httpClient.put<IProduct>(`${this.apiurl}`, JSON.stringify(product),  {
+    headers: { 'Content-Type': 'application/json' }
+  });
 }
-//delete product
+//delete product}
 deleteProduct(id: string): Observable<void>
 {
-  return this.httpClient.delete<void>(`${this.apiurl}/${id}`);
+  return this.httpClient.delete<void>(`${this.apiurl}/id?id=${id}`);
 }}

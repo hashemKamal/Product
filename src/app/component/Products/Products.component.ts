@@ -38,7 +38,7 @@ export class ProductsComponent implements OnInit {
   {
     const newProduct1 = {id : this.newProduct.id, name : this.newProduct.name, price : this.newProduct.price, completed : this.newProduct.completed};
 
-    this.ProductService.createProduct(newProduct1).subscribe(x=>
+    this.ProductService.createProduct(newProduct1.name).subscribe(x=>
     {
       this.products.push(x);
       this.isAvalible = this.products.length > 0;
